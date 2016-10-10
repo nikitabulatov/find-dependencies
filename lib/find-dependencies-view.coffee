@@ -1,6 +1,6 @@
 {SelectListView} = require('atom-space-pen-views')
 
-module.exports = class FindModulesView extends SelectListView
+module.exports = class FindDependenciesView extends SelectListView
   initialize: ->
     super
     @addClass('overlay from-top')
@@ -16,12 +16,18 @@ module.exports = class FindModulesView extends SelectListView
   isVisible: ->
     @panel.isVisible()
 
-  viewForItem: ({name}) ->
-    "<li>#{name}</li>"
+  viewForItem: ({name, rootDir}) ->
+    "<li>#{name} <small style='font-size: 8px;'>(from #{rootDir})</small></li>"
 
-  confirmed: ({dir}) ->
+  confirmed: ({filePath}) ->
     @hide()
-    atom.workspace.open(dir)
+    atom.workspace.open(filePath)
+    setTimeout(->
+      atom.commands.dispatch(atom.views.getView(atom.workspace), 'tree-view:reveal-active-file')
+    , 50)
+
+  getFilterKey: ->
+    'name'
 
   cancelled: ->
     @hide()
