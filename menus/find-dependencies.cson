@@ -1,0 +1,21 @@
+'context-menu':
+  'atom-text-editor': [
+    {
+      'label': 'Toggle find-dependencies'
+      'command': 'find-dependencies:toggle'
+    }
+  ]
+'menu': [
+  {
+    'label': 'Packages'
+    'submenu': [
+      'label': 'find-dependencies'
+      'submenu': [
+        {
+          'label': 'Toggle'
+          'command': 'find-dependencies:toggle'
+        }
+      ]
+    ]
+  }
+]
