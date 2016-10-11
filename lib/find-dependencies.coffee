@@ -46,8 +46,8 @@ module.exports =
   _adapt_package: (root, name, entry) ->
     rootPath = path.resolve(root, name)
     filePath = path.resolve(rootPath, entry.mainFile)
-    # TODO: first element isnt file mb
-    filePath = fs.readdirSync()[0] unless @_isFile(filePath)
+    unless @_isFile(filePath)
+      filePath = path.resolve(rootPath, fs.readdirSync(rootPath)[0])
     {name, filePath, rootDir: entry.dir}
 
   _isDir: (directory) ->

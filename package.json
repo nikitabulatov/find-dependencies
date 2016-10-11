@@ -1,13 +1,17 @@
 {
   "name": "find-dependencies",
   "main": "./lib/find-dependencies",
-  "version": "0.0.0",
+  "author": "nikitabulatov <bulatov.n.o@gmail.com>",
+  "version": "0.0.1",
   "description": "Atom plugin for finding package of dependency by package name",
   "keywords": [],
   "activationCommands": {
     "atom-workspace": "find-dependencies:toggle"
   },
   "repository": "https://github.com/nikitabulatov/find-dependencies",
+  "bugs": {
+    "url": "https://github.com/nikitabulatov/find-dependencies/issues"
+  },
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
   },
