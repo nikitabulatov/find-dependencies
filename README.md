@@ -5,5 +5,13 @@ If you have git ignored folder of dependencies you can't use default fuzzy finde
 
 ![find-dependencies](https://cloud.githubusercontent.com/assets/2994698/19279690/a1946472-900c-11e6-8b9a-2c4fdde7b4d2.gif)
 
-### Keystroke
+## Settings
+
+### Entries
+Use settings for setup entry directories
+
+### Fallback
+Use settings for setup fallback file if default file in directory of package is not exist
+
+## Default keystroke
 `ctr-alt-e`
