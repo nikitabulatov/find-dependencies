@@ -1,3 +1,5 @@
+# TODO: Use glob for matching file patterns
+# TODO: Make async fs things
 View = require('./find-dependencies-view')
 path = require('path')
 fs = require('fs')
@@ -59,7 +61,6 @@ module.exports =
   _getDirs: (atomDir, entry) ->
     root = path.resolve(atomDir.getPath(), entry.dir)
     if @_isDir(root)
-      # TODO: make async
       for fileName in fs.readdirSync(root) when @_isDir(path.resolve(root, fileName))
         # TODO: don't push if returns null
         @_adapt_package(root, fileName, entry)
