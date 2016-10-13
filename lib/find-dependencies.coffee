@@ -1,5 +1,6 @@
 # TODO: Use glob for matching file patterns
 # TODO: Make async fs things
+# TODO: Tests
 View = require('./find-dependencies-view')
 path = require('path')
 fs = require('fs')
@@ -60,12 +61,12 @@ module.exports =
 
   _getDirs: (atomDir, entry) ->
     root = path.resolve(atomDir.getPath(), entry.dir)
+    result = []
     if @_isDir(root)
       for fileName in fs.readdirSync(root) when @_isDir(path.resolve(root, fileName))
-        # TODO: don't push if returns null
-        @_adapt_package(root, fileName, entry)
-    else
-      []
+        pack = @_adapt_package(root, fileName, entry)
+        result.push(pack) if pack
+    result
 
   _adapt_package: (root, name, entry) ->
     rootPath = path.resolve(root, name)
@@ -73,11 +74,18 @@ module.exports =
     unless @_isFile(filePath)
       filePath = path.resolve(rootPath, atom.config.get('find-dependencies.fallbackFileName') || 'README.md')
     unless @_isFile(filePath)
-      filePath = path.resolve(rootPath, fs.readdirSync(rootPath)[0])
-    unless @_isFile(filePath)
-      throw new Erorr("File #{filePath} not exist")
-    # TODO: return null if directory is empty or not exist
-    {name, filePath, rootDir: entry.dir}
+      firstFile = @_getFirstFile(rootPath)
+      filePath = if firstFile then path.resolve(rootPath, firstFile) else null
+    if filePath and @_isFile(filePath)
+      return {name, filePath, rootDir: entry.dir}
+    else
+      return null
+
+  _getFirstFile: (dir) ->
+    for p in fs.readdirSync(dir)
+      p = path.resolve(dir, p)
+      return p if @_isFile(p)
+    null
 
   _isDir: (directory) ->
     try
