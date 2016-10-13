@@ -2,7 +2,7 @@
   "name": "find-dependencies",
   "main": "./lib/find-dependencies",
   "author": "nikitabulatov <bulatov.n.o@gmail.com>",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Atom plugin for finding package of dependency by package name",
   "keywords": [],
   "activationCommands": {
